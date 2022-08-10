@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+pnpm-debug.log*
+
+.idea
+.vscode
+.vs
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

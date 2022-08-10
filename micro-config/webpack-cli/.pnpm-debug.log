@@ -1,0 +1,119 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "/Users/daipengpeng/study/code/微前端/micro-webpack"
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@mfp/micro-config",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "bin": {
+        "mfp": "./bin/index.js"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC"
+    },
+    "prefix": "/Users/daipengpeng/study/code/微前端/micro-webpack/micro-config"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/Users/daipengpeng/Library/pnpm/store/v3",
+    "virtualStoreDir": "/Users/daipengpeng/study/code/微前端/micro-webpack/node_modules/.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "/Users/daipengpeng/study/code/微前端/micro-webpack",
+    "stage": "resolution_started"
+  },
+  "4 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/chalk/5.0.1",
+    "wanted": {
+      "dependentId": "micro-config",
+      "name": "chalk",
+      "rawSpec": "latest"
+    }
+  },
+  "5 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/chalk/5.0.1",
+    "requester": "/Users/daipengpeng/study/code/微前端/micro-webpack",
+    "status": "resolved"
+  },
+  "6 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/chalk/5.0.1",
+    "requester": "/Users/daipengpeng/study/code/微前端/micro-webpack",
+    "status": "found_in_store"
+  },
+  "7 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/commander/9.4.0",
+    "wanted": {
+      "dependentId": "micro-config",
+      "name": "commander",
+      "rawSpec": "latest"
+    }
+  },
+  "8 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/commander/9.4.0",
+    "requester": "/Users/daipengpeng/study/code/微前端/micro-webpack",
+    "status": "resolved"
+  },
+  "9 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/semver/7.3.7",
+    "wanted": {
+      "dependentId": "micro-config",
+      "name": "semver",
+      "rawSpec": "latest"
+    }
+  },
+  "10 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/semver/7.3.7",
+    "requester": "/Users/daipengpeng/study/code/微前端/micro-webpack",
+    "status": "resolved"
+  },
+  "11 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/semver/7.3.7",
+    "requester": "/Users/daipengpeng/study/code/微前端/micro-webpack",
+    "status": "found_in_store"
+  },
+  "12 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/inquirer/9.1.0",
+    "wanted": {
+      "dependentId": "micro-config",
+      "name": "inquirer",
+      "rawSpec": "latest"
+    }
+  },
+  "13 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/inquirer/9.1.0",
+    "requester": "/Users/daipengpeng/study/code/微前端/micro-webpack",
+    "status": "resolved"
+  },
+  "14 error pnpm": {
+    "code": "ERR_PNPM_FETCH_404",
+    "hint": "fs-exra is not in the npm registry, or you have no permission to fetch it.\n\nAn authorization header was used: Bearer npm_[hidden]",
+    "request": {
+      "authHeaderValue": "Bearer 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",
+      "url": "https://registry.npmjs.org/fs-exra"
+    },
+    "response": {
+      "size": 0
+    },
+    "pkgName": "fs-exra",
+    "spec": {
+      "fetchSpec": "latest",
+      "name": "fs-exra",
+      "type": "tag"
+    },
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "GET https://registry.npmjs.org/fs-exra: Not Found - 404",
+      "code": "ERR_PNPM_FETCH_404",
+      "stack": "pnpm: GET https://registry.npmjs.org/fs-exra: Not Found - 404\n    at RetryOperation._fn (/Users/daipengpeng/.nvm/versions/node/v16.15.0/lib/node_modules/pnpm/dist/pnpm.cjs:84475:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)"
+    }
+  }
+}

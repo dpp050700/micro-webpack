@@ -1,0 +1,43 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "/Users/daipengpeng/study/code/微前端/micro-webpack"
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {},
+    "prefix": "/Users/daipengpeng/Library/pnpm/store/v3/tmp/dlx-15136"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/Users/daipengpeng/Library/pnpm/store/v3",
+    "virtualStoreDir": "/Users/daipengpeng/Library/pnpm/store/v3/tmp/dlx-15136/node_modules/.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "/Users/daipengpeng/Library/pnpm/store/v3/tmp/dlx-15136",
+    "stage": "resolution_started"
+  },
+  "4 error pnpm": {
+    "code": "ERR_PNPM_FETCH_404",
+    "hint": "create-micro-cli is not in the npm registry, or you have no permission to fetch it.\n\nAn authorization header was used: Bearer npm_[hidden]",
+    "request": {
+      "authHeaderValue": "Bearer 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",
+      "url": "https://registry.npmjs.org/create-micro-cli"
+    },
+    "response": {
+      "size": 0
+    },
+    "pkgName": "create-micro-cli",
+    "spec": {
+      "fetchSpec": "latest",
+      "name": "create-micro-cli",
+      "type": "tag"
+    },
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "GET https://registry.npmjs.org/create-micro-cli: Not Found - 404",
+      "code": "ERR_PNPM_FETCH_404",
+      "stack": "pnpm: GET https://registry.npmjs.org/create-micro-cli: Not Found - 404\n    at RetryOperation._fn (/Users/daipengpeng/.nvm/versions/node/v16.15.0/lib/node_modules/pnpm/dist/pnpm.cjs:84475:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)"
+    }
+  }
+}

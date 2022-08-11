@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "mfp start"
+    "start": "mfp start",
+    "lint-css": "stylelint 'src/**/*.{less,css}' --fix --custom-syntax postcss"
   },
   "keywords": [],
   "author": "",

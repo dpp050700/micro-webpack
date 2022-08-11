@@ -1,10 +1,12 @@
-const { entryFile, buildOutPath, CWD } = require('./constant/path') 
+const { entryFile, buildOutPath, globalLessPath } = require('./constant/path') 
+const { __DEV__ } = require('./constant/index')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const getCssLoaders = require('./getCssLoaders')
 
 const resolve = path.resolve
 
-console.log(resolve(__dirname, './templates/index.html'))
+
 
 module.exports = {
   mode: 'development',
@@ -26,6 +28,26 @@ module.exports = {
         test: /\.(ts|tsx|js|jsx)$/,
         use: "babel-loader",
       },
+      {
+        test: /\.css$/,
+        use: getCssLoaders({ importLoaders: 0 })
+      },
+      {
+        test: /\.less$/,
+        use: [
+          ...getCssLoaders({ importLoaders: 2 }),
+          {
+            loader: 'less-loader',
+            options: { sourceMap: __DEV__ ? true : false, lessOptions: { javascriptEnabled: true } }
+          },
+          {
+            loader: 'style-resources-loader',
+            options: {
+              patterns: [globalLessPath]
+            }
+          }
+        ]
+      }
     ]
   },
   plugins: [

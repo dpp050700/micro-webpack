@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@mfp/eslint-config'],
-};
+  extends: ['@mfp/eslint-config']
+}

@@ -1,11 +1,10 @@
 {
-  "name": "micro-user",
+  "name": "micro-container",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "mfp start --config webpack.config.js",
-    "lint-css": "stylelint 'src/**/*.{less,css}' --fix --custom-syntax postcss"
+    "start": "mfp start --config webpack.config.js --port 4000"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +15,9 @@
   "devDependencies": {
     "@mfp/babel-preset": "workspace:*",
     "@mfp/eslint-config": "workspace:*",
-    "@mfp/stylelint-config": "workspace:*"
+    "@mfp/stylelint-config": "workspace:*",
+    "fs-extra": "^10.1.0",
+    "globby": "^13.1.2",
+    "slash": "^4.0.0"
   }
 }

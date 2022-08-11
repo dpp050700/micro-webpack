@@ -1,12 +1,10 @@
-const { entryFile, buildOutPath, globalLessPath } = require('./constant/path') 
+const { entryFile, buildOutPath, globalLessPath } = require('./constant/path')
 const { __DEV__ } = require('./constant/index')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const getCssLoaders = require('./getCssLoaders')
 
 const resolve = path.resolve
-
-
 
 module.exports = {
   mode: 'development',
@@ -17,16 +15,16 @@ module.exports = {
     filename: 'js/[name].js'
   },
   devServer: {
-    host: '0.0.0.0',
+    // host: '0.0.0.0',
     open: true,
     hot: true,
-    port: 3000,
+    port: 3000
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx|js|jsx)$/,
-        use: "babel-loader",
+        use: 'babel-loader'
       },
       {
         test: /\.css$/,
@@ -53,7 +51,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: resolve(__dirname, './templates/index.html'),
-      filename: "index.html",
+      filename: 'index.html'
     })
-  ]
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  }
 }

@@ -129,11 +129,11 @@ importers:
       globby: ^11.0.4
       slash: ^3.0.0
     dependencies:
-      '@mfp/webpack-cli': link:../../micro-config/webpack-cli
+      '@mfp/webpack-cli': link:../../packages/webpack-cli
     devDependencies:
-      '@mfp/babel-preset': link:../../micro-config/babel-preset
-      '@mfp/eslint-config': link:../../micro-config/eslint-config
-      '@mfp/stylelint-config': link:../../micro-config/stylelint-config
+      '@mfp/babel-preset': link:../../packages/babel-preset
+      '@mfp/eslint-config': link:../../packages/eslint-config
+      '@mfp/stylelint-config': link:../../packages/stylelint-config
       fs-extra: 10.1.0
       globby: 11.1.0
       slash: 3.0.0
@@ -145,11 +145,11 @@ importers:
       '@mfp/stylelint-config': workspace:*
       '@mfp/webpack-cli': workspace:*
     dependencies:
-      '@mfp/webpack-cli': link:../../micro-config/webpack-cli
+      '@mfp/webpack-cli': link:../../packages/webpack-cli
     devDependencies:
-      '@mfp/babel-preset': link:../../micro-config/babel-preset
-      '@mfp/eslint-config': link:../../micro-config/eslint-config
-      '@mfp/stylelint-config': link:../../micro-config/stylelint-config
+      '@mfp/babel-preset': link:../../packages/babel-preset
+      '@mfp/eslint-config': link:../../packages/eslint-config
+      '@mfp/stylelint-config': link:../../packages/stylelint-config
 
 packages:
 

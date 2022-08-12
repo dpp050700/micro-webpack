@@ -6,6 +6,8 @@ const webpackMerge = require('webpack-merge').merge
 
 const webpackConfig = require('../webpack/webpack.dev.js')
 
+let compileConfig = null
+
 const start = function (options, cmd) {
   const { port, config: customConfig } = options
 
@@ -19,7 +21,6 @@ const start = function (options, cmd) {
       // const configResult = await config(webpackConfig, mergeMFConfig, webpack)
       // compileConfig = webpackMerge(standardConfig, configResult)
     } else if (typeof config == 'object') {
-      console.log(111112334)
       compileConfig = webpackMerge(webpackConfig, config)
       // process.exit(1)
     } else {
@@ -28,7 +29,9 @@ const start = function (options, cmd) {
     }
   }
 
-  const webpackCompiler = webpack(webpackConfig)
+  console.log(compileConfig.plugins[1])
+
+  const webpackCompiler = webpack(compileConfig || webpackConfig)
 
   const serverOptions = webpackConfig.devServer
   new webpackDevServer(webpackCompiler, serverOptions).listen(serverOptions.port)

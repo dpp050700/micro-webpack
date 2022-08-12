@@ -1,5 +1,5 @@
 {
-  "name": "@mfp/webpack-cli",
+  "name": "@mfpm/webpack-cli",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -7,13 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "mfp": "./bin/index.js"
+    "mfpm": "./bin/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mfp/babel-preset": "workspace:*",
+    "@mfpm/babel-preset": "workspace:*",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "chalk": "^5.0.1",

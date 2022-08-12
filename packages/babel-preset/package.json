@@ -1,5 +1,5 @@
 {
-  "name": "@mfp/babel-preset",
+  "name": "@mfpm/babel-preset",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",

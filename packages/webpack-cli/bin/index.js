@@ -6,7 +6,7 @@ const start = require('../commands/start')
 
 const program = new Command()
 
-program.version(`mfp-cli ${require('../package').version}`).usage('<command> [options]')
+program.version(`mfpm-cli ${require('../package').version}`).usage('<command> [options]')
 
 program
   .command('start')

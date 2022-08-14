@@ -18,18 +18,13 @@ const start = function (options, cmd) {
     if (typeof config == 'function') {
       console.log('方法还没实现')
       process.exit(1)
-      // const configResult = await config(webpackConfig, mergeMFConfig, webpack)
-      // compileConfig = webpackMerge(standardConfig, configResult)
     } else if (typeof config == 'object') {
       compileConfig = webpackMerge(webpackConfig, config)
-      // process.exit(1)
     } else {
       console.log(customConfig + '不支持的数据格式')
       process.exit(1)
     }
   }
-
-  console.log(compileConfig.plugins[1])
 
   const webpackCompiler = webpack(compileConfig || webpackConfig)
 

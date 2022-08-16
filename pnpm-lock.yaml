@@ -77,6 +77,8 @@ importers:
       '@mfpm/babel-preset': 0.0.1
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
+      '@types/react-router': ^5.1.18
+      '@types/react-router-dom': ^5.3.3
       chalk: ^5.0.1
       commander: ^9.4.0
       css-loader: ^6.7.1
@@ -95,6 +97,8 @@ importers:
       postcss-preset-env: ^7.7.2
       react: ^18.2.0
       react-dom: ^18.2.0
+      react-router: ^6.3.0
+      react-router-dom: ^6.3.0
       semver: ^7.3.7
       style-loader: ^3.3.1
       style-resources-loader: ^1.5.0
@@ -107,6 +111,8 @@ importers:
       '@mfpm/babel-preset': link:../babel-preset
       '@types/react': 18.0.17
       '@types/react-dom': 18.0.6
+      '@types/react-router': 5.1.18
+      '@types/react-router-dom': 5.3.3
       chalk: 5.0.1
       commander: 9.4.0
       css-loader: 6.7.1_webpack@5.74.0
@@ -125,6 +131,8 @@ importers:
       postcss-preset-env: 7.7.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-router: 6.3.0_react@18.2.0
+      react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
       semver: 7.3.7
       style-loader: 3.3.1_webpack@5.74.0
       style-resources-loader: 1.5.0_webpack@5.74.0
@@ -1770,6 +1778,10 @@ packages:
       '@types/node': 18.6.5
     dev: false
 
+  /@types/history/4.7.11:
+    resolution: {integrity: sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==}
+    dev: false
+
   /@types/html-minifier-terser/6.1.0:
     resolution: {integrity: sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg==}
     dev: false
@@ -1827,6 +1839,21 @@ packages:
   /@types/react-dom/18.0.6:
     resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
     dependencies:
+      '@types/react': 18.0.17
+    dev: false
+
+  /@types/react-router-dom/5.3.3:
+    resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
+    dependencies:
+      '@types/history': 4.7.11
+      '@types/react': 18.0.17
+      '@types/react-router': 5.1.18
+    dev: false
+
+  /@types/react-router/5.1.18:
+    resolution: {integrity: sha512-YYknwy0D0iOwKQgz9v8nOzt2J6l4gouBmDnWqUUznltOTaon+r8US8ky8HvN0tXvc38U9m6z/t2RsVsnd1zM0g==}
+    dependencies:
+      '@types/history': 4.7.11
       '@types/react': 18.0.17
     dev: false
 
@@ -4756,6 +4783,12 @@ packages:
     hasBin: true
     dev: false
 
+  /history/5.3.0:
+    resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
+    dependencies:
+      '@babel/runtime': 7.18.9
+    dev: false
+
   /homedir-polyfill/1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
@@ -7459,6 +7492,27 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
+  /react-router-dom/6.3.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      history: 5.3.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-router: 6.3.0_react@18.2.0
+    dev: false
+
+  /react-router/6.3.0_react@18.2.0:
+    resolution: {integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      history: 5.3.0
+      react: 18.2.0
     dev: false
 
   /react/18.2.0:

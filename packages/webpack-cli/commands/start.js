@@ -11,7 +11,7 @@ const { ModuleFederationPlugin } = webpack.container
 const portFinder = require('portfinder')
 const dotenv = require('dotenv')
 
-const { bigCamel } = require('../webpack/helper/index')
+const { bigCamel, pkg } = require('../webpack/helper/index')
 
 let compileConfig = null
 
@@ -108,9 +108,11 @@ function initDependentMFPConfig() {
 
 function initMFPConfig(config) {
   const list = initDependentMFPConfig()
-  console.log(list)
   config.plugins.push(
     new ModuleFederationPlugin({
+      name: bigCamel(pkg.name),
+      filename: 'remoteEntry.js',
+      exposes: {},
       remotes: { ...list }
     })
   )

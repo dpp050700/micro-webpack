@@ -1,17 +1,21 @@
 const webpack = require('webpack')
 const webpackDevServer = require('webpack-dev-server')
 const { resolve } = require('path')
-const { CWD, ENV_DEPENDENCIES_LIST, ENV_DEPENDENCIES_CONFIG } = require('../webpack/constant/path')
+const {
+  CWD,
+  ENV_DEPENDENCIES_LIST,
+  ENV_DEPENDENCIES_CONFIG,
+  dependenciesServiceDts,
+  buildOutPath
+} = require('../webpack/constant/path')
 const { ENV_DEPENDENCIES_NAME } = require('../webpack/constant/index')
 const webpackMerge = require('webpack-merge').merge
 const fs = require('fs-extra')
-const { formatDependenciesServiceName } = require('../webpack/helper/index')
+const { formatDependenciesServiceName, downloadFile, bigCamel, pkg } = require('../webpack/helper/index')
 const { ModuleFederationPlugin } = webpack.container
 
 const portFinder = require('portfinder')
 const dotenv = require('dotenv')
-
-const { bigCamel, pkg } = require('../webpack/helper/index')
 
 let compileConfig = null
 
@@ -106,21 +110,66 @@ function initDependentMFPConfig() {
   }, {})
 }
 
+async function downloadDependentDts() {
+  const dependencies = getServiceDependencies()
+  const promiseList = dependencies.reduce((prev, dep) => {
+    const serviceName = formatDependenciesServiceName(dep)
+    const serviceAddress = process.env[serviceName]
+    return [
+      ...prev,
+      downloadFile(`${serviceAddress}/${bigCamel(dep)}.d.ts`, resolve(dependenciesServiceDts, `${bigCamel(dep)}.d.ts`))
+    ]
+  }, [])
+  await Promise.all(promiseList)
+}
+
 function initMFPConfig(config) {
   const list = initDependentMFPConfig()
+
+  const currentDeps = require(resolve(__dirname, '../package.json')).dependencies
+
   config.plugins.push(
     new ModuleFederationPlugin({
       name: bigCamel(pkg.name),
       filename: 'remoteEntry.js',
       exposes: {},
-      remotes: { ...list }
+      remotes: { ...list },
+      shared: {
+        react: {
+          eager: true,
+          singleton: true,
+          requiredVersion: currentDeps['react']
+        },
+        'react-dom': {
+          eager: true,
+          singleton: true,
+          requiredVersion: currentDeps['react-dom']
+        },
+        'react-router': {
+          eager: true,
+          singleton: true,
+          requiredVersion: currentDeps['react-router']
+        },
+        'react-router-dom': {
+          eager: true,
+          singleton: true,
+          requiredVersion: currentDeps['react-router-dom']
+        }
+      }
     })
   )
   return list
 }
 
+function checkDirExists() {
+  fs.ensureDirSync(dependenciesServiceDts)
+  fs.ensureDirSync(buildOutPath)
+}
+
 const start = async function (options, cmd) {
-  const { port = 4000, config: customConfig } = options
+  const { port = 4000, config: customConfig, open = false } = options
+
+  checkDirExists()
 
   await startFreePort(port)
 
@@ -147,9 +196,12 @@ const start = async function (options, cmd) {
 
   initMFPConfig(compileConfig)
 
+  downloadDependentDts()
+
   const webpackCompiler = webpack(compileConfig)
 
   const serverOptions = webpackConfig.devServer
+  serverOptions.open = open
   new webpackDevServer(webpackCompiler, serverOptions).listen(serverOptions.port)
 }
 

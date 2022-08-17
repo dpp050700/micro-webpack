@@ -5,8 +5,8 @@ const path = require('path')
 const getCssLoaders = require('./getCssLoaders')
 const GenerateDtsPlugin = require('./plugins/generateDtsPlugin')
 const FileUpdateNotifyPlugin = require('./plugins/fileUpdateNotifyPlugin')
-
-const resolve = path.resolve
+const { resolve, srcPath, CWD } = require('./constant/path')
+const { bigCamel, pkg } = require('./helper/index')
 
 const notifyServiceList = []
 
@@ -23,6 +23,10 @@ module.exports = {
     open: true,
     hot: true,
     port: process.env.MICRO_CLI_PORT,
+    historyApiFallback: true,
+    static: {
+      directory: buildOutPath
+    },
     onBeforeSetupMiddleware: function ({ app }) {
       app.get('/registerNotifyService', function (req, res) {
         res.send({
@@ -64,7 +68,12 @@ module.exports = {
       template: resolve(__dirname, './templates/index.html'),
       filename: 'index.html'
     }),
-    new GenerateDtsPlugin({}),
+    new GenerateDtsPlugin({
+      entry: srcPath,
+      root: resolve(CWD),
+      output: `dist/${bigCamel(pkg.name)}.d.ts`,
+      replaceList: [[pkg.name, bigCamel(pkg.name)]]
+    }),
     new FileUpdateNotifyPlugin({ serviceList: notifyServiceList })
   ],
   resolve: {

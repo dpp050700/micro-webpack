@@ -2,9 +2,7 @@ const Generator = require('npm-dts').Generator
 const { resolve } = require('path')
 const CWD = process.cwd()
 const { bigCamel, pkg } = require('../../helper/index')
-// const {} = require('../../constant/path')
-
-// console.log(pkg)
+const { formatTypes } = require('./formatTypes')
 
 const plugin = {
   name: 'GenerateDtsPlugin'
@@ -20,14 +18,12 @@ class GenerateDtsPlugin {
 
     compiler.hooks.done.tapAsync(plugin, (status, cb) => {
       const generator = new Generator({
-        entry: resolve(CWD, 'src'),
-        root: resolve(CWD),
-        output: `@types/${bigCamel(pkg.name)}.d.ts`,
-        logLevel: 'verbose'
+        ..._options,
+        logLevel: 'debug'
       })
 
       generator.generate().then((res) => {
-        console.log(res)
+        formatTypes(this.options)
       })
 
       cb()

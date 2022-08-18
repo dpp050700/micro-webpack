@@ -1,11 +1,10 @@
-const { entryFile, buildOutPath, globalLessPath } = require('./constant/path')
+const { entryFile, buildOutPath, globalLessPath, resolve, srcPath, CWD } = require('./constant/path')
 const { __DEV__ } = require('./constant/index')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const getCssLoaders = require('./getCssLoaders')
 const GenerateDtsPlugin = require('./plugins/generateDtsPlugin')
 const FileUpdateNotifyPlugin = require('./plugins/fileUpdateNotifyPlugin')
-const { resolve, srcPath, CWD } = require('./constant/path')
 const { bigCamel, pkg } = require('./helper/index')
 
 const notifyServiceList = []
@@ -60,6 +59,18 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(gif|png|jpg|jpeg|webp)$/i,
+        type: 'asset',
+        generator: {
+          filename: 'assets/[name].[contenthash:6][ext][query]'
+        },
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024
+          }
+        }
       }
     ]
   },
@@ -77,6 +88,9 @@ module.exports = {
     new FileUpdateNotifyPlugin({ serviceList: notifyServiceList })
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      '@': srcPath
+    }
   }
 }

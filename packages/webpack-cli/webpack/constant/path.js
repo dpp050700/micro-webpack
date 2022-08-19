@@ -1,5 +1,6 @@
 const fs = require('fs-extra')
 const path = require('path')
+const address = require('address')
 
 const resolve = path.resolve
 
@@ -21,6 +22,10 @@ const pkgPath = resolve(CWD, 'package.json')
 
 const dependenciesServiceDts = resolve(CWD, '@types/services')
 
+function getCurrentServiceAddress() {
+  return 'http://' + address.ip() + `:${process.env.MICRO_CLI_PORT}/`
+}
+
 module.exports = {
   resolve,
   CWD,
@@ -31,5 +36,6 @@ module.exports = {
   srcPath,
   dependenciesServiceDts,
   ENV_DEPENDENCIES_LIST,
-  ENV_DEPENDENCIES_CONFIG
+  ENV_DEPENDENCIES_CONFIG,
+  getCurrentServiceAddress
 }

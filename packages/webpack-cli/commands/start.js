@@ -16,6 +16,8 @@ const { ModuleFederationPlugin } = webpack.container
 
 const portFinder = require('portfinder')
 const dotenv = require('dotenv')
+const slash = require('slash')
+const globby = require('globby')
 
 let compileConfig = null
 
@@ -92,10 +94,27 @@ function microServiceSync() {
  * 根据 export 文件夹， 生成需要联邦的模块
  */
 function generateDefaultMFPExposes() {
-  return []
+  const absPath = slash(resolve(CWD, 'src/exports'))
+  const relativePath = resolve(absPath, '*.*')
+  const files = globby.sync([relativePath], {
+    deep: 1
+  })
+
+  const exposes = files.reduce((preVal, module) => {
+    const suffix = module.match(/\.[A-Za-z]+$/)
+    const key = `.${(module || '').replace(absPath, '').replace(suffix, '')}`
+    if (key && key.length > 0) {
+      preVal[slash(key)] = module
+    }
+    return preVal
+  }, {})
+  console.log(exposes)
+  return exposes
 }
 
-function initProvideMFPConfig() {}
+function initProvideMFPConfig(config) {
+  // const defaultProvide = generateDefaultMFPExposes()
+}
 
 function initDependentMFPConfig() {
   const dependencies = getServiceDependencies()
@@ -124,7 +143,10 @@ async function downloadDependentDts() {
 }
 
 function initMFPConfig(config) {
+  console.log('模块联邦配置文件')
   const list = initDependentMFPConfig()
+
+  const defaultProvide = generateDefaultMFPExposes()
 
   const currentDeps = require(resolve(__dirname, '../package.json')).dependencies
 
@@ -132,7 +154,7 @@ function initMFPConfig(config) {
     new ModuleFederationPlugin({
       name: bigCamel(pkg.name),
       filename: 'remoteEntry.js',
-      exposes: {},
+      exposes: defaultProvide,
       remotes: { ...list },
       shared: {
         react: {
@@ -195,6 +217,7 @@ const start = async function (options, cmd) {
   }
 
   initMFPConfig(compileConfig)
+  // initProvideMFPConfig(compileConfig)
 
   downloadDependentDts()
 

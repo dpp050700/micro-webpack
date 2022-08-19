@@ -1,4 +1,12 @@
-const { entryFile, buildOutPath, globalLessPath, resolve, srcPath, CWD } = require('./constant/path')
+const {
+  entryFile,
+  buildOutPath,
+  globalLessPath,
+  resolve,
+  srcPath,
+  CWD,
+  getCurrentServiceAddress
+} = require('./constant/path')
 const { __DEV__ } = require('./constant/index')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
@@ -15,16 +23,31 @@ module.exports = {
   entry: entryFile,
   output: {
     path: buildOutPath,
-    filename: 'js/[name].js'
+    filename: 'js/[name].js',
+    publicPath: __DEV__ ? getCurrentServiceAddress() : '/'
   },
   devServer: {
-    // host: '0.0.0.0',
+    host: '0.0.0.0',
     open: true,
     hot: true,
     port: process.env.MICRO_CLI_PORT,
     historyApiFallback: true,
     static: {
       directory: buildOutPath
+    },
+    compress: true,
+    hot: 'only',
+    client: {
+      overlay: {
+        warnings: true,
+        errors: true
+      }
+    },
+    liveReload: false,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': '*'
     },
     onBeforeSetupMiddleware: function ({ app }) {
       app.get('/registerNotifyService', function (req, res) {

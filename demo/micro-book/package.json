@@ -1,0 +1,22 @@
+{
+  "name": "micro-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mfpm start --port 4020",
+    "start:open": "mfpm start --port 4020 --open",
+    "lint-css": "stylelint 'src/**/*.{less,css}' --fix --custom-syntax postcss"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mfpm/eslint-config": "^0.0.3",
+    "@mfpm/webpack-cli": "^0.0.7"
+  },
+  "devDependencies": {
+    "@mfpm/babel-preset": "^0.0.1",
+    "@mfpm/stylelint-config": "^0.0.1"
+  }
+}

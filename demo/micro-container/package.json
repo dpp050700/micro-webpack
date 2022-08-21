@@ -11,12 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@mfpm/eslint-config": "^0.0.3",
     "@mfpm/webpack-cli": "^0.0.7",
     "antd": "^4.22.5"
   },
   "devDependencies": {
     "@mfpm/babel-preset": "^0.0.1",
-    "@mfpm/eslint-config": "^0.0.3",
     "@mfpm/stylelint-config": "^0.0.1",
     "fs-extra": "^10.1.0",
     "globby": "^11.0.4",

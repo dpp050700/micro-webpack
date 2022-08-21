@@ -16,4 +16,11 @@ program
   .option('-o, --open', '默认开启页面')
   .action(start)
 
+program
+  .command('init')
+  .description('初始化微前端项目')
+  .option('-n, --name [name]', '输入项目的名称')
+  .option('-p, --port [port]', '设置项目默认启动端口号')
+  .action()
+
 program.parse(process.argv)

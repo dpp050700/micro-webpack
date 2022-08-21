@@ -111,12 +111,8 @@ declare module 'MicroContainer/components/layout/components/AppHeader' {
 
 }
 declare module 'MicroContainer/components/layout/components/AppLayout' {
-  import React from 'react';
-  interface IAppLayout {
-      children: React.ReactNode;
-  }
-  export default function AppLayout({ children }: IAppLayout): JSX.Element;
-  export {};
+  /// <reference types="react" />
+  export default function AppLayout(): JSX.Element;
 
 }
 declare module 'MicroContainer/components/layout/components/AppMenu' {
@@ -131,7 +127,9 @@ declare module 'MicroContainer/components/layout/components/UserAvatar' {
 }
 declare module 'MicroContainer/components/layout' {
   /// <reference types="react" />
+  import AppLayout from 'MicroContainer/components/layout/components/AppLayout';
   export default function RenderRoutes({ routes }: any): JSX.Element;
+  export { AppLayout };
 
 }
 declare module 'MicroContainer' {

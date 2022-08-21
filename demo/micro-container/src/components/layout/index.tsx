@@ -1,25 +1,18 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, useRoutes } from 'react-router-dom'
 import AppLayout from './components/AppLayout'
 
+const Router = ({ routes }: any) => {
+  return useRoutes(routes)
+}
+
 export default function RenderRoutes({ routes }: any) {
+  const appRoutes = [{ path: '/login', element: <div>login</div> }, ...routes, { path: '*', element: <div>404</div> }]
   return (
     <BrowserRouter>
-      <AppLayout>
-        <Routes>
-          {routes.map((item: any) => (
-            <Route
-              path={item.path}
-              element={
-                <React.Suspense>
-                  <item.component />
-                </React.Suspense>
-              }
-              key={item.path}
-            />
-          ))}
-        </Routes>
-      </AppLayout>
+      <Router routes={appRoutes} />
     </BrowserRouter>
   )
 }
+
+export { AppLayout }

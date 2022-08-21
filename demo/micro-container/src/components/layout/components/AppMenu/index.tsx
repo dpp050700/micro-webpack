@@ -6,26 +6,25 @@ export default function AppMenu() {
   const navigate = useNavigate()
   const items = [
     {
-      key: 'use-list',
+      key: '/user/list',
       label: '用户列表',
       icon: <UserOutlined />
     },
     {
-      key: 'book/list',
+      key: '/book/list',
       label: '图书列表',
       icon: <UserOutlined />
     },
     {
-      key: 'admin-list',
+      key: '/user/admin',
       label: '管理员列表',
       icon: <UserOutlined />
     }
   ]
 
   const handleMenuClick = (data: any) => {
-    console.log(data)
-    const path = data.key === 'use-list' ? '' : data.key
-    navigate(path)
+    // const path = data.key === '/user/list' ? '' : data.key
+    navigate(data.key)
   }
   return <Menu mode='inline' theme='dark' items={items} onClick={handleMenuClick} />
 }

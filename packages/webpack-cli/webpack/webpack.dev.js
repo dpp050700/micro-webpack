@@ -13,9 +13,14 @@ const path = require('path')
 const getCssLoaders = require('./getCssLoaders')
 const GenerateDtsPlugin = require('./plugins/generateDtsPlugin')
 const FileUpdateNotifyPlugin = require('./plugins/fileUpdateNotifyPlugin')
-const { bigCamel, pkg } = require('./helper/index')
+const { bigCamel } = require('./helper/index')
 
 const notifyServiceList = []
+
+const pkg = () => {
+  const pkgPath = resolve(CWD, 'package.json')
+  return require(pkgPath)
+}
 
 module.exports = {
   mode: 'development',
@@ -105,8 +110,8 @@ module.exports = {
     new GenerateDtsPlugin({
       entry: srcPath,
       root: resolve(CWD),
-      output: `dist/${bigCamel(pkg.name)}.d.ts`,
-      replaceList: [[pkg.name, bigCamel(pkg.name)]]
+      output: `dist/${bigCamel(pkg().name)}.d.ts`,
+      replaceList: [[pkg().name, bigCamel(pkg().name)]]
     }),
     new FileUpdateNotifyPlugin({ serviceList: notifyServiceList })
   ],

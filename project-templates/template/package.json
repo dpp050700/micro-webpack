@@ -1,0 +1,22 @@
+{
+  "name": "<%= projectName %>",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mfpm start --port <%= servicePort %>",
+    "start:open": "mfpm start --port <%= servicePort %> --open",
+    "lint-css": "stylelint 'src/**/*.{less,css}' --fix --custom-syntax postcss"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mfpm/webpack-cli": "^0.0.7"
+  },
+  "devDependencies": {
+    "@mfpm/babel-preset": "^0.0.1",
+    "@mfpm/stylelint-config": "^0.0.1",
+    "@mfpm/eslint-config": "^0.0.3"
+  }
+}

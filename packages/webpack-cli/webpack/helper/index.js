@@ -1,10 +1,6 @@
 const http = require('http')
 const fs = require('fs-extra')
 
-const { pkgPath } = require('../constant/path')
-
-const pkg = require(pkgPath)
-
 function formatDependenciesServiceName(projectName) {
   return `${projectName.replace(/\-/g, '_').toUpperCase()}_SERVICE`
 }
@@ -54,6 +50,5 @@ module.exports = {
   formatDependenciesServiceName,
   smallCamel,
   bigCamel,
-  pkg,
   downloadFile
 }

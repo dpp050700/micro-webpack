@@ -11,7 +11,7 @@ const {
 const { ENV_DEPENDENCIES_NAME } = require('../webpack/constant/index')
 const webpackMerge = require('webpack-merge').merge
 const fs = require('fs-extra')
-const { formatDependenciesServiceName, downloadFile, bigCamel, pkg } = require('../webpack/helper/index')
+const { formatDependenciesServiceName, downloadFile, bigCamel } = require('../webpack/helper/index')
 const { ModuleFederationPlugin } = webpack.container
 
 const portFinder = require('portfinder')
@@ -134,6 +134,7 @@ async function downloadDependentDts() {
   const promiseList = dependencies.reduce((prev, dep) => {
     const serviceName = formatDependenciesServiceName(dep)
     const serviceAddress = process.env[serviceName]
+    console.log(serviceAddress, 111)
     return [
       ...prev,
       downloadFile(`${serviceAddress}/${bigCamel(dep)}.d.ts`, resolve(dependenciesServiceDts, `${bigCamel(dep)}.d.ts`))
@@ -144,6 +145,9 @@ async function downloadDependentDts() {
 
 function initMFPConfig(config) {
   console.log('模块联邦配置文件')
+
+  const pkg = require(resolve(CWD, 'package.json'))
+
   const list = initDependentMFPConfig()
 
   const defaultProvide = generateDefaultMFPExposes()

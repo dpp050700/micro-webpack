@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
 const { Command } = require('commander')
+const path = require('path')
 
 const start = require('../commands/start')
+const init = require('../commands/init')
 
 const program = new Command()
+const version = require(path.resolve(__dirname, '../package.json')).version
 
-program.version(`mfpm-cli ${require('../package').version}`).usage('<command> [options]')
+program.version(`mfpm-cli ${version}`).usage('<command> [options]')
 
 program
   .command('start')
@@ -21,6 +24,6 @@ program
   .description('初始化微前端项目')
   .option('-n, --name [name]', '输入项目的名称')
   .option('-p, --port [port]', '设置项目默认启动端口号')
-  .action()
+  .action(init)
 
 program.parse(process.argv)

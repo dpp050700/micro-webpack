@@ -8,7 +8,12 @@ module.exports = {
     es2021: true,
     node: true
   },
-  extends: ['airbnb', 'plugin:react/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'airbnb',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended'
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -37,7 +42,10 @@ module.exports = {
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
     'jsx-a11y/click-events-have-key-events': OFF,
     'jsx-a11y/no-noninteractive-element-interactions': OFF,
-    'jsx-a11y/no-static-element-interactions': OFF
+    'jsx-a11y/no-static-element-interactions': OFF,
+
+    '@typescript-eslint/no-unused-vars': WARN,
+    '@typescript-eslint/no-var-requires': OFF
   },
   settings: {
     'import/resolver': {
@@ -48,6 +56,7 @@ module.exports = {
         map: [['@', './src/']]
       },
       typescript: {}
-    }
+    },
+    'import/extensions': ['.js', '.jsx', '.ts', '.tsx']
   }
 }

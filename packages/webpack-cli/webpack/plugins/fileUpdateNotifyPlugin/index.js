@@ -3,14 +3,14 @@ const plugin = {
 }
 
 class FileUpdateNotifyPlugin {
-  constructor({ serviceList }) {
-    this.serviceList = serviceList || []
+  constructor({ finish }) {
+    this.finish = finish
   }
   apply(compiler) {
     compiler.hooks.done.tapAsync(plugin, (status, cb) => {
-      this.serviceList.forEach((service) => {
-        console.log(service)
-      })
+      if (this.finish) {
+        this.finish()
+      }
       cb()
     })
   }

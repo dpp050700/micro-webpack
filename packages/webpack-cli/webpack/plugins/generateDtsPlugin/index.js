@@ -1,7 +1,7 @@
 const Generator = require('npm-dts').Generator
 const { resolve } = require('path')
 const CWD = process.cwd()
-const { bigCamel, pkg } = require('../../helper/index')
+const { bigCamel, pkg } = require('../../../helpers/utils')
 const { formatTypes } = require('./formatTypes')
 
 const plugin = {
@@ -24,6 +24,7 @@ class GenerateDtsPlugin {
 
       generator.generate().then((res) => {
         formatTypes(this.options)
+        _options.finish && _options.finish()
       })
 
       cb()

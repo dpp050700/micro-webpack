@@ -5,7 +5,8 @@ const {
   resolve,
   srcPath,
   CWD,
-  getCurrentServiceAddress
+  getCurrentServiceAddress,
+  dependenciesServiceDts
 } = require('./constant/path')
 const { __DEV__ } = require('./constant/index')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -13,7 +14,8 @@ const path = require('path')
 const getCssLoaders = require('./getCssLoaders')
 const GenerateDtsPlugin = require('./plugins/generateDtsPlugin')
 const FileUpdateNotifyPlugin = require('./plugins/fileUpdateNotifyPlugin')
-const { bigCamel } = require('./helper/index')
+const { bigCamel, downloadFile } = require('../helpers/utils')
+const { get } = require('http')
 
 const notifyServiceList = []
 
@@ -56,9 +58,23 @@ module.exports = {
     },
     onBeforeSetupMiddleware: function ({ app }) {
       app.get('/registerNotifyService', function (req, res) {
-        res.send({
-          name: '11123'
-        })
+        const serviceUrl = req.query.url || ''
+        if (serviceUrl && notifyServiceList.indexOf(serviceUrl) < 0) {
+          notifyServiceList.push(serviceUrl)
+        }
+        res.send({})
+      })
+
+      app.get('/notifyTypeUpdate', function (req, res) {
+        const serviceUrl = req.query.url || ''
+        const serviceName = req.query.name || ''
+        if (serviceUrl && serviceName) {
+          downloadFile(
+            `${serviceUrl}/${bigCamel(serviceName)}.d.ts`,
+            resolve(dependenciesServiceDts, `${bigCamel(serviceName)}.d.ts`)
+          )
+        }
+        res.send({})
       })
     }
   },
@@ -111,9 +127,23 @@ module.exports = {
       entry: srcPath,
       root: resolve(CWD),
       output: `dist/${bigCamel(pkg().name)}.d.ts`,
-      replaceList: [[pkg().name, bigCamel(pkg().name)]]
+      replaceList: [[pkg().name, bigCamel(pkg().name)]],
+      finish: () => {
+        notifyServiceList.forEach((service) => {
+          get(`${service}notifyTypeUpdate?url=${getCurrentServiceAddress()}&name=${pkg().name}`)
+        })
+      }
     }),
-    new FileUpdateNotifyPlugin({ serviceList: notifyServiceList })
+
+    // 通知子服务更新
+    new FileUpdateNotifyPlugin({
+      finish: () => {
+        notifyServiceList.forEach((service) => {
+          console.log(service)
+          get(`${service}notifyUpdate`)
+        })
+      }
+    })
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],

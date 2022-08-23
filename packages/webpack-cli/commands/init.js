@@ -6,7 +6,7 @@ const fs = require('fs-extra')
 const glob = require('globby')
 const ejs = require('ejs')
 const path = require('path')
-const { formatDependenciesServiceName } = require('../webpack/helper/index')
+const { formatDependenciesServiceName } = require('../helpers/utils')
 
 async function selectProjectTemplate(templates) {
   const choices = templates.map((template) => {

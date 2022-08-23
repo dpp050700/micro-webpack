@@ -6,18 +6,20 @@ const {
   ENV_DEPENDENCIES_LIST,
   ENV_DEPENDENCIES_CONFIG,
   dependenciesServiceDts,
-  buildOutPath
+  buildOutPath,
+  getCurrentServiceAddress
 } = require('../webpack/constant/path')
 const { ENV_DEPENDENCIES_NAME } = require('../webpack/constant/index')
 const webpackMerge = require('webpack-merge').merge
 const fs = require('fs-extra')
-const { formatDependenciesServiceName, downloadFile, bigCamel } = require('../webpack/helper/index')
+const { formatDependenciesServiceName, downloadFile, bigCamel } = require('../helpers/utils')
 const { ModuleFederationPlugin } = webpack.container
 
 const portFinder = require('portfinder')
 const dotenv = require('dotenv')
 const slash = require('slash')
 const globby = require('globby')
+const { get } = require('http')
 
 let compileConfig = null
 
@@ -77,6 +79,11 @@ function loadEnv() {
   loadDependenciesConfig()
 }
 
+function getDepServiceAddress(dep) {
+  const serviceName = formatDependenciesServiceName(dep)
+  return process.env[serviceName]
+}
+
 function getServiceDependencies() {
   const dependencies = process.env[ENV_DEPENDENCIES_NAME] || ''
   const result = dependencies.split(',').filter((service) => service)
@@ -85,8 +92,12 @@ function getServiceDependencies() {
 
 function microServiceSync() {
   const dependencies = getServiceDependencies()
+  const pkg = require(resolve(CWD, 'package.json'))
   dependencies.forEach((dep) => {
     console.log(dep)
+    const url = getDepServiceAddress(dep)
+    get(`${url}/registerNotifyService?url=${getCurrentServiceAddress()}&name=${pkg.name}`)
+    // await get(`${dep}`)
   })
 }
 
@@ -108,12 +119,7 @@ function generateDefaultMFPExposes() {
     }
     return preVal
   }, {})
-  console.log(exposes)
   return exposes
-}
-
-function initProvideMFPConfig(config) {
-  // const defaultProvide = generateDefaultMFPExposes()
 }
 
 function initDependentMFPConfig() {
@@ -134,7 +140,6 @@ async function downloadDependentDts() {
   const promiseList = dependencies.reduce((prev, dep) => {
     const serviceName = formatDependenciesServiceName(dep)
     const serviceAddress = process.env[serviceName]
-    console.log(serviceAddress, 111)
     return [
       ...prev,
       downloadFile(`${serviceAddress}/${bigCamel(dep)}.d.ts`, resolve(dependenciesServiceDts, `${bigCamel(dep)}.d.ts`))
@@ -221,7 +226,6 @@ const start = async function (options, cmd) {
   }
 
   initMFPConfig(compileConfig)
-  // initProvideMFPConfig(compileConfig)
 
   downloadDependentDts()
 

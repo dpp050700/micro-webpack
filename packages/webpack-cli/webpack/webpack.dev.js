@@ -43,7 +43,6 @@ module.exports = {
       directory: buildOutPath
     },
     compress: true,
-    hot: 'only',
     client: {
       overlay: {
         warnings: true,
